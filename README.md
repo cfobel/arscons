@@ -9,20 +9,26 @@ build & upload Arduino sketch on the command line with scons!
 
 ## Basic Usage:
 
-- make a folder which have same name of the sketch (ex. Blink/ for Blink.pde)
-- put the sketch and the SConstruct under the folder.
-- to make the HEX do following in the folder:
+ 1. Make a directory which have same name of the sketch (ex. Blink/ for Blink.pde)
+   * Note that, as a convenience, if the sketch does _not_ have the same name
+     as the parent directory, compilation will still be performed if it is the
+     only file in the directory with the extension `.pde` or `.ino`
+ 2. Put the sketch, `SConstruct`, and the directory `site_scons` under the
+   sketch directory.
+ 3. To compile the `.hex`-file, do following in the directory:
 
-    $ scons
+     $ scons
 
-- to upload the binary, do following in the folder:
+ 4. To upload the binary, do following in the directory:
 
-    $ scons upload
+     $ scons upload
 
-- refer [Expert Usage](https://github.com/suapapa/arscons/wiki/Expert-Usage) for change the confs.
-- refer [Arscons Users](https://github.com/suapapa/arscons/wiki/Arscons-Users) for arscons in practice (and hacks!)
+ - Refer [Expert Usage](https://github.com/suapapa/arscons/wiki/Expert-Usage)
+   for change the confs.
+ - Refer [Arscons Users](https://github.com/suapapa/arscons/wiki/Arscons-Users)
+   for arscons in practice (and hacks!).
 
-## `site_scons.arduino_build` module
+## `site_scons.arduino_build` module:
 
 In addition to the basic usage described above, the `site_scons.arduino_build`
 module may be included in other projects using SCons to build any Arduino

@@ -11,19 +11,22 @@
 # You'll need the serial module: http://pypi.python.org/pypi/pyserial
 
 # Basic Usage:
-# 1. make a folder which have same name of the sketch (ex. Blink/ for Blink.pde)
+# 1. Make a directory which have same name of the sketch (ex. Blink/ for Blink.pde)
 #   * Note that, as a convenience, if the sketch does _not_ have the same name
 #     as the parent directory, compilation will still be performed if it is the
 #     only file in the directory with the extension `.pde` or `.ino`
-# 2. put the sketch and SConstruct (this file) under the folder.
-# 3. to make the HEX. do following in the folder.
+# 2. Put the sketch, `SConstruct` _(this file)_, and the directory `site_scons`
+#   under the sketch directory.
+# 3. To make the HEX. do following in the directory.
 #     $ scons
-# 4. to upload the binary, do following in the folder.
+# 4. To upload the binary, do following in the directory.
 #     $ scons upload
 
 # Thanks to:
 # * Ovidiu Predescu <ovidiu@gmail.com> and Lee Pike <leepike@gmail.com>
 #     for Mac port and bugfix.
+# * Steven Ashley <steven@ashley.net.nz> for Windows port.
+# * Kyle Gordon for many patches which including Arduino-1 support
 #
 # This script tries to determine the port to which you have an Arduino
 # attached. If multiple USB serial devices are attached to your
