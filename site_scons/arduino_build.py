@@ -1,41 +1,15 @@
-# Copyright (C) 2012 by Christian Fobel <christian@fobel.net>
-
-# Based on the scons script for an Arduino sketch at:
-# http://code.google.com/p/arscons/
+# arscons: scons script for the Arduino sketch
+# http://github.com/suapapa/arscons
 #
-# Copyright (C) 2010 by Homin Lee <ff4500@gmail.com>
+# Copyright (C) 2010-2013 by Homin Lee <homin.lee@suapapa.net>
+# Copyright (C) 2013 by Christian Fobel <christian@fobel.net>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
-
 # You'll need the serial module: http://pypi.python.org/pypi/pyserial
-
-# Basic Usage:
-# 1. make a folder which have same name of the sketch (ex. Blink/ for Blik.pde)
-# 2. put the sketch and SConstruct(this file) under the folder.
-# 3. to make the HEX. do following in the folder.
-#     $ scons
-# 4. to upload the binary, do following in the folder.
-#     $ scons upload
-
-# Thanks to:
-# * Ovidiu Predescu <ovidiu@gmail.com> and Lee Pike <leepike@gmail.com>
-#     for Mac port and bugfix.
-#
-# This script tries to determine the port to which you have an Arduino
-# attached. If multiple USB serial devices are attached to your
-# computer, you'll need to explicitly specify the port to use, like
-# this:
-#
-# $ scons ARDUINO_PORT=/dev/ttyUSB0
-#
-# To add your own directory containing user libraries, pass EXTRA_LIB
-# to scons, like this:
-#
-# $ scons EXTRA_LIB=<my-extra-library-dir>
-#
+# Copyright (C) 2012 by Christian Fobel <christian@fobel.net>
 from glob import glob
 import sys
 import re
@@ -103,6 +77,21 @@ def get_lib_candidate_list(sketch_path, arduino_version):
 
 
 class ArduinoBuildContext(object):
+    '''
+    Arduino SCons build-context class.
+    ==================================
+
+    ## Usage ##
+
+     1. Create an instance of this class, passing in:
+
+       * SCons arguments, i.e. `ARGUMENTS`
+       * A build directory path _(optional)_
+
+     2. Call the `build` method, which returns a handle to the `.hex`-file
+       build rule.  This handle can be used as a dependency in other SCons
+       build rules, etc.
+    '''
     def __init__(self, scons_arguments, build_root=None):
         try:
             self.config = json.load(open('arscons.json'))
@@ -514,6 +503,9 @@ class ArduinoBuildContext(object):
               register_upload=False):
         '''
         Return handle to built `.hex`-file rule.
+
+        The contents of `env_dict` _(if provided)_ are used to update the SCons
+        `Environment` used when compiling the Arduino project.
         '''
         if hex_root is None:
             hex_root = self.build_root.joinpath('hex')
